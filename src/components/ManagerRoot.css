@@ -1,0 +1,3 @@
+.b-menu{display: flex; justify-content: center}
+  .b-menu__item{display: block; background-color: green; cursor: pointer; padding: 3px 8px; color: white; border-radius: 2px}
+  .b-menu__item:not(:last-child){margin-right: 20px;}
