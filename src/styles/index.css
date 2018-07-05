@@ -3,3 +3,6 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.b-link{cursor: pointer; text-decoration: underline}
+.b-link:not(:last-child){margin-right: 6px;}
