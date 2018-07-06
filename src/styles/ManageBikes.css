@@ -1,3 +1,3 @@
-.b-table{display: grid; grid-template-columns: repeat(8, 1fr); margin: 20px; grid-gap: 5px}
+.b-table{display: grid; grid-template-columns: repeat(9, 1fr); margin: 20px; grid-gap: 5px}
   .b-table__header-cell{background-color: gray; text-transform: capitalize}
   .b-table__header-cell, .b-table__cell{padding: 1px 3px}

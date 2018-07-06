@@ -4,6 +4,7 @@ import '../styles/ManageBikes.css';
 export default class ManageBikes extends Component {
 
   state={
+    editingBikeId: -1, // -1 no bike editing, 0 adding a bike
     bikes: []
   }
 
@@ -19,7 +20,7 @@ export default class ManageBikes extends Component {
 
   deleteBike(id){
     this.setState(s=>{
-      let idx = s.bikes.findIndex(b=>b.id==id);
+      let idx = s.bikes.findIndex(b=>b.id===id);
       s.bikes.splice(idx, 1);
       return s;
     });
@@ -49,6 +50,7 @@ export default class ManageBikes extends Component {
           {tableHeaderCells}
           {tableRows}
         </div>
+        <a className="b-link">add bike</a>
       </div>
     )
   }
