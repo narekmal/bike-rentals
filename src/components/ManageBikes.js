@@ -18,7 +18,7 @@ export default class ManageBikes extends Component {
       tableHeaderCells.push(<div key="-1" className="b-table__header-cell">Actions</div>);
       tableRows = this.state.items.map(b=>{
         if(b.id === this.state.editingItemId)
-          return this.getEditRow(b.id);
+          return this.getEditRow();
         let cells = Object.values(b).map((v,i)=><div key={i} className="b-table__cell">{v}</div>);
         cells.push(
           <div key="-1" className="b-table__cell">
@@ -28,7 +28,7 @@ export default class ManageBikes extends Component {
         return cells;
       });
       if(this.state.editingItemId === 0) // adding item
-        tableRows.push(this.getEditRow(0));
+        tableRows.push(this.getEditRow());
     }
     return (
       <div className="l-pane">
@@ -41,10 +41,10 @@ export default class ManageBikes extends Component {
     )
   }
 
-  getEditRow(bikeId) {
+  getEditRow() {
     return (
-      <form onSubmit={e=>{console.log('herr'); e.preventDefault();}} key={'fictivecontainer'} style={{display: "contents"}}>
-        <div className="b-table__cell">{bikeId ? bikeId : ''}</div>
+      <form key={'fictivecontainer'} style={{display: "contents"}}>
+        <div className="b-table__cell">{this.state.tempItem.id}</div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.model} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, model: e.target.value}}))}}/></div>
         <div className="b-table__cell"></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.color} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, color: e.target.value}}))}}/></div>
@@ -53,7 +53,7 @@ export default class ManageBikes extends Component {
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.available} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, available: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.rate} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, rate: e.target.value}}))}}/></div>
         <div className="b-table__cell">
-          <a className="b-link" onClick={()=>this.submitEditItem(bikeId)}>submit</a>
+          <a className="b-link" onClick={()=>this.submitEditItem()}>submit</a>
           <a className="b-link" onClick={()=>this.setState({editingItemId: -1})}>cancel</a>
         </div>
       </form>
@@ -86,7 +86,8 @@ export default class ManageBikes extends Component {
       .then(json => console.log(json));
   }
 
-  submitEditItem(id){
+  submitEditItem(){
+    let id = this.state.editingItemId;
     this.setState(s=>{
       s.editingItemId = -1;
       if(id === 0){
