@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
 import ManageBikes from './ManageBikes';
+import ManageUsers from './ManageUsers';
 import '../styles/ManagerRoot.css';
 
 class ManagerRoot extends Component {
@@ -16,6 +17,7 @@ class ManagerRoot extends Component {
           </div>
           <div>
             <Route path='/manage-bikes' component={ManageBikes}></Route>
+            <Route path='/manage-users' component={ManageUsers}></Route>
           </div>
         </div>
       </Router>
