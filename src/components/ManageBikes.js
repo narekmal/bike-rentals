@@ -32,38 +32,33 @@ export default class ManageBikes extends Component {
     }
     return (
       <div>
-        <form onSubmit={e=>{console.log('herr'); e.preventDefault();}}>
-          <div className="b-table">
-            {tableHeaderCells}
-            {tableRows}
-          </div>
-        </form>
+        <div className="b-table">
+          {tableHeaderCells}
+          {tableRows}
+        </div>
         <a className="b-link" onClick={()=>this.addBike()}>add bike</a>
-        {/* <form onSubmit={e=>{console.log('herr'); e.preventDefault();}}>
-        <input type="text"/>
-        <input type="submit"/>
-        </form> */}
       </div>
     )
   }
 
   getEditRow(bikeId) {
     let cells = [], i = 0;
-    cells.push(<div key={i++} className="b-table__cell">{bikeId ? bikeId : ''}</div>);
-    cells.push(<div key={i++} className="b-table__cell"><input type="text" value={this.state.tempBike.model} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, model: e.target.value}}))}}/></div>);
-    cells.push(<div key={i++} className="b-table__cell"></div>);
-    cells.push(<div key={i++} className="b-table__cell"><input type="text" value={this.state.tempBike.color} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, color: e.target.value}}))}}/></div>);
-    cells.push(<div key={i++} className="b-table__cell"><input type="text" value={this.state.tempBike.weight} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, weight: e.target.value}}))}}/></div>);
-    cells.push(<div key={i++} className="b-table__cell"><input type="text" value={this.state.tempBike.location} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, location: e.target.value}}))}}/></div>);
-    cells.push(<div key={i++} className="b-table__cell"><input type="text" value={this.state.tempBike.available} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, available: e.target.value}}))}}/></div>);
-    cells.push(<div key={i++} className="b-table__cell"><input type="text" value={this.state.tempBike.rate} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, rate: e.target.value}}))}}/></div>);
-    cells.push((
-      <div key={i++} className="b-table__cell">
-        <a className="b-link" onClick={()=>this.submitEditBike(bikeId)}>submit</a>
-        <a className="b-link" onClick={()=>this.setState({editingBikeId: -1})}>cancel</a>
-      </div>
-    ));
-    return cells;
+    return (
+      <form onSubmit={e=>{console.log('herr'); e.preventDefault();}} key={'fictivecontainer'} style={{display: "contents"}}>
+        <div className="b-table__cell">{bikeId ? bikeId : ''}</div>
+        <div className="b-table__cell"><input type="text" value={this.state.tempBike.model} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, model: e.target.value}}))}}/></div>
+        <div className="b-table__cell"></div>
+        <div className="b-table__cell"><input type="text" value={this.state.tempBike.color} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, color: e.target.value}}))}}/></div>
+        <div className="b-table__cell"><input type="text" value={this.state.tempBike.weight} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, weight: e.target.value}}))}}/></div>
+        <div className="b-table__cell"><input type="text" value={this.state.tempBike.location} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, location: e.target.value}}))}}/></div>
+        <div className="b-table__cell"><input type="text" value={this.state.tempBike.available} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, available: e.target.value}}))}}/></div>
+        <div className="b-table__cell"><input type="text" value={this.state.tempBike.rate} onChange={e=>{e.persist(); this.setState(s=>({tempBike:{...s.tempBike, rate: e.target.value}}))}}/></div>
+        <div className="b-table__cell">
+          <a className="b-link" onClick={()=>this.submitEditBike(bikeId)}>submit</a>
+          <a className="b-link" onClick={()=>this.setState({editingBikeId: -1})}>cancel</a>
+        </div>
+      </form>
+    );
   }
 
   componentDidMount(){
