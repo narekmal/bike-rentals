@@ -6,3 +6,5 @@ body {
 
 .b-link{cursor: pointer; text-decoration: underline}
 .b-link:not(:last-child){margin-right: 6px;}
+
+.l-pane{padding: 20px;}
