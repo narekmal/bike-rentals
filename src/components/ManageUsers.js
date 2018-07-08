@@ -36,7 +36,7 @@ export default class ManageUsers extends Component {
           {tableHeaderCells}
           {tableRows}
         </div>
-        <div style={{textAlign: "left"}}><a className="b-link" onClick={()=>this.addItem()}>add user</a></div>
+        <div style={{textAlign: "left", marginTop: 25}}><a className="b-link" onClick={()=>this.addItem()}>add user</a></div>
       </div>
     )
   }

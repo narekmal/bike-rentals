@@ -13,7 +13,6 @@ class ManagerRoot extends Component {
           <div className="b-menu">
             <NavLink className="b-menu__item" to='/manage-bikes'>Manage Bikes</NavLink>
             <NavLink className="b-menu__item" to='/manage-users'>Manage Users</NavLink>
-            <NavLink className="b-menu__item" to='/explore-reservations'>Explore Reservations</NavLink>
           </div>
           <div>
             <Route path='/manage-bikes' component={ManageBikes}></Route>
