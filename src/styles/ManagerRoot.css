@@ -1,6 +1,0 @@
-.b-login{padding: 10px; border-bottom: 1px solid black; text-align: center}
-
-.b-menu{display: flex; justify-content: center; padding: 10px; border-bottom: 1px solid black}
-  .b-menu__item{display: block; background-color: gray; cursor: pointer; padding: 3px 8px; color: white; border-radius: 2px; text-decoration: none}
-  .b-menu__item.active{background-color: green}
-  .b-menu__item:not(:last-child){margin-right: 20px;}

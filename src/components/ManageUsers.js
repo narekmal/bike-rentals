@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../styles/ManageBikes.css';
 
 export default class ManageUsers extends Component {
 

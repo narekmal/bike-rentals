@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Route, NavLink, Redirect} from 'react-router-do
 import Login from './Login';
 import Register from './Register';
 import ManagerRoot from './ManagerRoot';
-import '../styles/ManagerRoot.css';
 
 class Home extends Component {
 
