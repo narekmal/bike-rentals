@@ -4,8 +4,10 @@ import Login from './Login';
 import Register from './Register';
 import ManagerRoot from './ManagerRoot';
 import AuthPane from './AuthPane';
+import PrivateRoute from './PrivateRoute';
 import {connect} from 'react-redux';
 import {login, logout} from '../actions/authActions';
+
 
 class Home extends Component {
 
@@ -32,7 +34,7 @@ class Home extends Component {
 
           { this.props.auth.isAuth && <AuthPane /> }
 
-          <Route path='/manager' component={ManagerRoot} />
+          <PrivateRoute path='/manager' component={ManagerRoot} />
 
         </div>
       </Router>
