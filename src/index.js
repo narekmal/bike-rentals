@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
-import ManagerRoot from './components/ManagerRoot';
+import Home from './components/Home';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<ManagerRoot />, document.getElementById('root'));
+ReactDOM.render(<Home />, document.getElementById('root'));
 registerServiceWorker();
