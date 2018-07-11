@@ -42,20 +42,12 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    ...state
-  };
-}
+const mapStateToProps = state => ({ ...state }); 
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (userName, password) => {
-      dispatch(login(userName, password));
-    },
-    logout: () => {
-      dispatch(logout());
-    }
+    login: (userName, password) => { dispatch(login(userName, password)) },
+    logout: () => { dispatch(logout()) }
   }
 }
 

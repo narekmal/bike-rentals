@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, NavLink, Redirect} from 'react-router-dom';
+import {Route, NavLink} from 'react-router-dom';
 import ManageBikes from './ManageBikes';
 import ManageUsers from './ManageUsers';
 

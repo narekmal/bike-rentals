@@ -1,17 +1,28 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {login, logout} from '../../actions/authActions';
 
-export default class AuthPane extends Component {
+class AuthPane extends Component {
   render() {
     return (
-      <div>
-              <div className="b-login">
-                Logged in as: {this.props.auth.userName}
-                <button onClick={()=>{
-                  console.log('hh');
-
-                }}>Log Out</button>
-              </div>
-            </div>
+      <div className="b-login">
+        Logged in as: {this.props.auth.userName}
+        <button className="b-login__btn" onClick={()=>this.props.logout()}>Log Out</button>
+      </div>
     )
   }
 }
+
+const mapStateToProps = state => ({ ...state }); 
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (userName, password) => { dispatch(login(userName, password)) },
+    logout: () => { dispatch(logout()) }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AuthPane);
