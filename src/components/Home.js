@@ -3,26 +3,21 @@ import {BrowserRouter as Router, Route, NavLink, Redirect} from 'react-router-do
 import Login from './Login';
 import Register from './Register';
 import ManagerRoot from './ManagerRoot';
+import AuthPane from './AuthPane';
+import {connect} from 'react-redux';
+import {login, logout} from '../actions/authActions';
 
 class Home extends Component {
-
-  state = {
-    auth: {
-      isAuth: false,
-      role: '', // 'user' or 'manager'
-      userName: ''
-    }
-  }
 
   render() {
     return (
       <Router>
         <div>
 
-          { this.state.auth.isAuth && 
-            <Route exact path="/(/|login)/" render={()=>(<Redirect to={'/'+this.state.auth.role} />)}></Route> }
+          { this.props.auth.isAuth && 
+            <Route exact path="/(/|login)/" render={()=>(<Redirect to={'/'+this.props.auth.role} />)}></Route> }
 
-          { !this.state.auth.isAuth && 
+          { !this.props.auth.isAuth && 
             <div>
               <h1 style={{textAlign: 'center'}}>Welcome to Bike Rentals</h1>
               <div>
@@ -30,21 +25,12 @@ class Home extends Component {
                 <NavLink className='b-link' to='/register'>Register</NavLink>
               </div>
               <div>
-                <Route path='/login' render={()=>(
-                  <button onClick={()=>{
-                    this.setState({auth: {isAuth: true, role: 'manager', userName: 'user22'}});
-                  }}>login</button>)}></Route>
+                <Route path='/login' component={Login}></Route>
                 <Route path='/register' component={Register}></Route>
               </div>
             </div> }
 
-          { this.state.auth.isAuth && 
-            <div>
-              <div className="b-login">
-                Logged in as: {this.state.auth.userName}
-                <button onClick={()=>this.setState({auth: {isAuth: false}})}>Log Out</button>
-              </div>
-            </div> }
+          { this.props.auth.isAuth && <AuthPane /> }
 
           <Route path='/manager' component={ManagerRoot} />
 
@@ -54,4 +40,24 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    ...state
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (userName, password) => {
+      dispatch(login(userName, password));
+    },
+    logout: () => {
+      dispatch(logout());
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
