@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, NavLink, Redirect} from 'react-router-dom';
-import Login from './Login';
-import Register from './Register';
-import ManagerRoot from './ManagerRoot';
-import AuthPane from './AuthPane';
-import PrivateRoute from './PrivateRoute';
 import {connect} from 'react-redux';
 import {login, logout} from '../actions/authActions';
+import {BrowserRouter as Router, Route, NavLink, Redirect} from 'react-router-dom';
+import Login from './auth/Login';
+import Register from './auth/Register';
+import AuthPane from './auth/AuthPane';
+import PrivateRoute from './auth/PrivateRoute';
+import ManagerRoot from './manager/ManagerRoot';
 
 
 class Home extends Component {
