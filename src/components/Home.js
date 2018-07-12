@@ -7,6 +7,7 @@ import Register from './auth/Register';
 import AuthPane from './auth/AuthPane';
 import PrivateRoute from './auth/PrivateRoute';
 import ManagerRoot from './manager/ManagerRoot';
+import UserRoot from './user/UserRoot';
 
 
 class Home extends Component {
@@ -34,7 +35,8 @@ class Home extends Component {
 
           { this.props.auth.isAuth && <AuthPane /> }
 
-          <PrivateRoute path='/manager' component={ManagerRoot} />
+          <PrivateRoute path='/manager' role='manager' component={ManagerRoot} />
+          <PrivateRoute path='/user' role='user' component={UserRoot} />
 
         </div>
       </Router>

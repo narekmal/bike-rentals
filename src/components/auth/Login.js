@@ -5,9 +5,9 @@ import {login} from '../../actions/authActions';
 class Login extends Component {
   render() {
     return (
-      <div>
-        <button onClick={()=>this.props.login('fake manager', 'fake pw')}>Log In as Manager</button>
-        <button onClick={()=>this.props.login('fake user', 'fake pw')}>Log In as User</button>
+      <div style={{display: 'flex', justifyContent: 'center', marginTop: 30}}>
+        <button onClick={()=>this.props.login('fake manager', 'fake pw')}>Log in as Manager</button>
+        <button style={{marginLeft: 20}} onClick={()=>this.props.login('fake user', 'fake pw')}>Log in as User</button>
       </div>
     )
   }

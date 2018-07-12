@@ -1,10 +1,20 @@
 import {AUTH_START, AUTH_END, LOGOUT} from '../actions/types';
 
-const initialState = {
+let initialState = {
   auth: {
     isAuth: false,
     role: '', // 'user' or 'manager'
-    userName: ''
+    userName: '',
+    userId: 0
+  }
+}
+
+initialState = {
+  auth: {
+    isAuth: true,
+    role: 'user',
+    userName: 'redux user',
+    userId: 3
   }
 }
 
