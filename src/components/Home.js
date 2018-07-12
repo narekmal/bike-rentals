@@ -24,8 +24,8 @@ class Home extends Component {
             <div className="b-home">
               <div className="b-home__title" style={{textAlign: 'center'}}>Welcome to Bike Rentals</div>
               <div className="b-home__links">
-                <NavLink className='b-link' to='/login'>Login</NavLink>
-                <NavLink className='b-link' to='/register'>Register</NavLink>
+                <NavLink to='/login'>Login</NavLink>
+                <NavLink to='/register'>Register</NavLink>
               </div>
               <div className="b-home__auth">
                 <Route path='/login' component={Login}></Route>

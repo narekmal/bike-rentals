@@ -28,12 +28,12 @@ export default class ManageBikes extends Component {
         let cells = Object.values(b).map((v,i)=><div key={i} className="b-table__cell">{v}</div>);
         cells.push(
           <div key="-1" className="b-table__cell">
-            <a className="b-link" onClick={()=>this.watchReservations(b.id)}>watch</a>
+            <a className="u-link" onClick={()=>this.watchReservations(b.id)}>watch</a>
           </div>);
         cells.push(
           <div key="-2" className="b-table__cell">
-            <a className="b-link" onClick={()=>this.editItem(b.id)}>edit</a>
-            <a className="b-link" onClick={()=>this.submitDeleteItem(b.id)}>delete</a>
+            <a className="u-link" onClick={()=>this.editItem(b.id)}>edit</a>
+            <a className="u-link" onClick={()=>this.submitDeleteItem(b.id)}>delete</a>
           </div>);
         return cells;
       });
@@ -56,7 +56,7 @@ export default class ManageBikes extends Component {
           {tableHeaderCells}
           {tableRowCells}
         </div>
-        <div style={{textAlign: "left", marginTop: 25}}><a className="b-link" onClick={()=>this.addItem()}>add bike</a></div>
+        <div style={{textAlign: "left", marginTop: 25}}><a className="u-link" onClick={()=>this.addItem()}>add bike</a></div>
 
         {this.state.reservations.itemId > 0 && 
         <div className="b-reservations">
@@ -93,8 +93,8 @@ export default class ManageBikes extends Component {
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.rate} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, rate: e.target.value}}))}}/></div>
         <div className="b-table__cell"></div>
         <div className="b-table__cell">
-          <a className="b-link" onClick={()=>this.submitEditItem()}>submit</a>
-          <a className="b-link" onClick={()=>this.setState({editingItemId: -1})}>cancel</a>
+          <a className="u-link" onClick={()=>this.submitEditItem()}>submit</a>
+          <a className="u-link" onClick={()=>this.setState({editingItemId: -1})}>cancel</a>
         </div>
       </form>
     );

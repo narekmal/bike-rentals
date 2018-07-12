@@ -12,7 +12,7 @@ let initialState = {
 initialState = {
   auth: {
     isAuth: true,
-    role: 'user',
+    role: 'manager',
     userName: 'redux user',
     userId: 3
   }

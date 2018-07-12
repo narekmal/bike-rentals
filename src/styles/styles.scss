@@ -29,6 +29,7 @@ body {margin: 0; padding: 0; font-family: sans-serif;}
   &__header-cell{background-color: gray; text-transform: capitalize}
   &__header-cell, .b-table__cell{padding: 1px 3px; height: 23px; display: flex; align-items: center}
   input{width: 100%; display: inline;}
+  &__cell{a:not(:last-child){margin-right: 6px;}}
 }
   
 .b-reservations{

@@ -21,8 +21,8 @@ export default class ManageUsers extends Component {
         let cells = Object.values(b).map((v,i)=><div key={i} className="b-table__cell">{v}</div>);
         cells.push(
           <div key="-1" className="b-table__cell">
-            <a className="b-link" onClick={()=>this.editItem(b.id)}>edit</a>
-            <a className="b-link" onClick={()=>this.submitDeleteItem(b.id)}>delete</a>
+            <a className="u-link" onClick={()=>this.editItem(b.id)}>edit</a>
+            <a className="u-link" onClick={()=>this.submitDeleteItem(b.id)}>delete</a>
           </div>);
         return cells;
       });
@@ -35,7 +35,7 @@ export default class ManageUsers extends Component {
           {tableHeaderCells}
           {tableRows}
         </div>
-        <div style={{textAlign: "left", marginTop: 25}}><a className="b-link" onClick={()=>this.addItem()}>add user</a></div>
+        <div style={{textAlign: "left", marginTop: 25}}><a className="u-link" onClick={()=>this.addItem()}>add user</a></div>
       </div>
     )
   }
@@ -48,8 +48,8 @@ export default class ManageUsers extends Component {
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.password} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, password: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.role} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, role: e.target.value}}))}}/></div>
         <div className="b-table__cell">
-          <a className="b-link" onClick={()=>this.submitEditItem()}>submit</a>
-          <a className="b-link" onClick={()=>this.setState({editingItemId: -1})}>cancel</a>
+          <a className="u-link" onClick={()=>this.submitEditItem()}>submit</a>
+          <a className="u-link" onClick={()=>this.setState({editingItemId: -1})}>cancel</a>
         </div>
       </form>
     );
