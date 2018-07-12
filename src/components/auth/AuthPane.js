@@ -6,7 +6,7 @@ class AuthPane extends Component {
   render() {
     return (
       <div className="b-login">
-        Logged in as: {this.props.auth.userName}
+        Logged in as: <span className="b-login__name">{this.props.auth.userName}</span>
         <button className="b-login__btn" onClick={()=>this.props.logout()}>Log Out</button>
       </div>
     )

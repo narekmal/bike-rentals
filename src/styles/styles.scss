@@ -1,11 +1,21 @@
 body {margin: 0; padding: 0; font-family: sans-serif;}
 
-.b-link{cursor: pointer; text-decoration: underline}
-.b-link:not(:last-child){margin-right: 6px;}
+.l-root{max-width: 1200px; margin: 0 auto;}
+
+.u-link{cursor: pointer; text-decoration: underline; color: green;}
+
+.b-home{
+  &__title{font-weight: bold; font-size: 30px; margin: 40px 0;}
+  &__links{display: flex; justify-content: center; a{@extend .u-link;}; a:not(:last-child){margin-right: 30px;}}
+}
 
 .l-pane{padding: 20px;}
 
-.b-login{padding: 10px; border-bottom: 1px solid black; text-align: center}
+.b-login{
+  padding: 10px; border-bottom: 1px solid black; text-align: center;
+  &__name{font-weight: bold;}
+  &__btn{margin-left: 15px;}
+}
 
 .b-menu{
   display: flex; justify-content: center; padding: 10px; border-bottom: 1px solid black;

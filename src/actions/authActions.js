@@ -14,7 +14,7 @@ export function login(userName, password){
       type: AUTH_END,
       isAuth: true,
       userName: userName,
-      role: 'manager'
+      role: userName == 'fake manager' ? 'manager' : 'user'
     });
   }
 }
