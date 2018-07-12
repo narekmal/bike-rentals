@@ -18,7 +18,7 @@ class Home extends Component {
         <div className="l-root">
 
           { this.props.auth.isAuth && 
-            <Route exact path="/(/|login)/" render={()=>(<Redirect to={'/'+this.props.auth.role} />)}></Route> }
+            <Route exact path="/(|login)/" render={()=>(<Redirect to={'/'+this.props.auth.role} />)}></Route> }
 
           { !this.props.auth.isAuth && 
             <div className="b-home">
