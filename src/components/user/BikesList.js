@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import config from '../Config';
 
 export default class BikesList extends Component {
 
@@ -17,7 +18,23 @@ export default class BikesList extends Component {
       tableRowCells = this.state.items.map(b=>{
         if(b.id === this.state.editingItemId)
           return this.getEditRow();
-        let cells = Object.values(b).map((v,i)=><div key={i} className="b-table__cell">{v}</div>);
+
+        let cells = Object.keys(b).map( (k,i) => {
+          let cellContent;
+          let style = {};
+          let className = 'b-table__cell';
+
+          if(k === 'photo'){
+            style = b[k] != null ? {backgroundImage: `url(${config.apiBaseUrl}/${b[k]})`} : {};
+            cellContent = '';
+            className += ' b-table__cell--img';
+          }
+          else
+            cellContent = b[k];
+            
+          return (<div key={i} style={style} className={className}>{cellContent}</div>)
+        });
+
         cells.push(
           <div key="-1" className="b-table__cell">
             <a className="u-link" onClick={()=>{}}>view</a>
