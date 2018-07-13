@@ -1,4 +1,4 @@
-import {AUTH_START, AUTH_END, LOGOUT} from './types';
+import {AUTH_END, LOGOUT} from './types';
 
 export function logout(){
   return {
@@ -14,7 +14,7 @@ export function login(userName, password){
       type: AUTH_END,
       isAuth: true,
       userName: userName,
-      role: userName == 'fake manager' ? 'manager' : 'user'
+      role: userName === 'fake manager' ? 'manager' : 'user'
     });
   }
 }

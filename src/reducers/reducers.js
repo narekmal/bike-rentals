@@ -1,4 +1,4 @@
-import {AUTH_START, AUTH_END, LOGOUT} from '../actions/types';
+import {AUTH_END, LOGOUT} from '../actions/types';
 
 let initialState = {
   auth: {
@@ -12,7 +12,7 @@ let initialState = {
 initialState = {
   auth: {
     isAuth: true,
-    role: 'user',
+    role: 'manager',
     userName: 'redux user',
     userId: 3
   }

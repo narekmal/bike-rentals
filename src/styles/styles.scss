@@ -25,11 +25,14 @@ body {margin: 0; padding: 0; font-family: sans-serif;}
 }
   
 .b-table{
-  display: grid; grid-gap: 5px;
+  display: grid; grid-gap: 5px; align-items: center;
   &__header-cell{background-color: gray; text-transform: capitalize}
-  &__header-cell, .b-table__cell{padding: 1px 3px; height: 23px; display: flex; align-items: center}
+  &__header-cell, &__cell{padding: 1px 3px; height: 23px; display: flex; align-items: center}
+  //&__cell{justify-content: center}
   input{width: 100%; display: inline;}
   &__cell{a:not(:last-child){margin-right: 6px;}}
+  &__cell--img{padding-bottom: 40% !important; background-size: cover; background-position: center; position: relative}
+  &__file-input-wrapper{position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: flex; align-items: center; justify-content: center}
 }
   
 .b-reservations{

@@ -35,8 +35,8 @@ class Home extends Component {
 
           { this.props.auth.isAuth && <AuthPane /> }
 
-          <PrivateRoute path='/manager' role='manager' component={ManagerRoot} />
-          <PrivateRoute path='/user' role='user' component={UserRoot} />
+          <PrivateRoute path='/manager' authRole='manager' component={ManagerRoot} />
+          <PrivateRoute path='/user' authRole='user' component={UserRoot} />
 
         </div>
       </Router>

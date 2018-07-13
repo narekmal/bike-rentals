@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import config from '../Config.js';
 
 export default class ManageBikes extends Component {
 
@@ -13,7 +14,7 @@ export default class ManageBikes extends Component {
     items: []
   }
 
-  emptyItem = {id: 0, model: '', photo: '', color: '', weight: '', location: '', available: 1, rate: 0}
+  emptyItem = {id: 0, model: '', photo: null, color: '', weight: '', location: '', available: 1, rate: 0}
 
   render() {
     let tableHeaderCells, tableRowCells;
@@ -25,7 +26,23 @@ export default class ManageBikes extends Component {
       tableRowCells = this.state.items.map(b=>{
         if(b.id === this.state.editingItemId)
           return this.getEditRow();
-        let cells = Object.values(b).map((v,i)=><div key={i} className="b-table__cell">{v}</div>);
+
+        let cells = Object.keys(b).map( (k,i) => {
+          let cellContent;
+          let style = {};
+          let className = 'b-table__cell';
+
+          if(k === 'photo'){
+            style = b[k] != null ? {backgroundImage: `url(${config.apiBaseUrl}/${b[k]})`} : {};
+            cellContent = '';
+            className += ' b-table__cell--img';
+          }
+          else
+            cellContent = b[k];
+            
+          return (<div key={i} style={style} className={className}>{cellContent}</div>)
+        });
+
         cells.push(
           <div key="-1" className="b-table__cell">
             <a className="u-link" onClick={()=>this.watchReservations(b.id)}>watch</a>
@@ -85,7 +102,7 @@ export default class ManageBikes extends Component {
       <form key={'fictivecontainer'} style={{display: "contents"}}>
         <div className="b-table__cell">{this.state.tempItem.id}</div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.model} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, model: e.target.value}}))}}/></div>
-        <div className="b-table__cell"></div>
+        <div className="b-table__cell b-table__cell--img"><div className="b-table__file-input-wrapper"><button onClick={e=>{this.uploadInput.click(); e.preventDefault();}}>Choose Photo</button><input ref={el=>this.uploadInput = el} style={{display: 'none'}} type="file" onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, photo: e.target.files[0]}}))}} /></div></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.color} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, color: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.weight} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, weight: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.location} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, location: e.target.value}}))}}/></div>
@@ -101,7 +118,7 @@ export default class ManageBikes extends Component {
   }
 
   componentDidMount(){
-    fetch('http://narek-dev.com/bike-rentals-api/api/getBikes')
+    fetch(`${config.apiBaseUrl}/api/getBikes`)
       .then(res => res.json())
       .then(json => this.setState({items: json}));
   }
@@ -121,7 +138,7 @@ export default class ManageBikes extends Component {
       s.items.splice(idx, 1);
       return s;
     });
-    fetch(`http://narek-dev.com/bike-rentals-api/api/deleteBike?id=${id}`)
+    fetch(`${config.apiBaseUrl}/api/deleteBike?id=${id}`)
       .then(res => res.json())
       .then(json => console.log(json));
   }
@@ -143,24 +160,25 @@ export default class ManageBikes extends Component {
     let formData = new FormData();
     formData.append("id", id);
     formData.append("model", temp.model);
+    formData.append("photo", temp.photo);
     formData.append("color", temp.color);
     formData.append("weight", temp.weight);
     formData.append("location", temp.location);
     formData.append("available", temp.available);
     formData.append("rate", temp.rate);
-    fetch(`http://narek-dev.com/bike-rentals-api/api/editBike`, {
+    fetch(`${config.apiBaseUrl}/api/editBike`, {
         method: 'POST',
         body: formData
       })
       .then(res => res.json())
       .then(json => {
-        // if item added, update the id in UI
-        if(id===0)
-          this.setState(s=>{
-            let idx = s.items.findIndex(b=>b.id===0);
-            s.items[idx].id = json.status.Bike.id;
-            return s;
-          });
+        // update photo in UI, and the id if newly added 
+        this.setState(s=>{
+          let idx = s.items.findIndex(b=>b.id===id);
+          s.items[idx].id = json.status.Bike.id;
+          s.items[idx].photo = json.status.Bike.photo;
+          return s;
+        });
         console.log(json)
       });
   }
