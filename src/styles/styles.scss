@@ -45,3 +45,11 @@ body {margin: 0; padding: 0; font-family: sans-serif;}
   &__no-data{text-align: center;}
 }
   
+.b-bike{
+  display: flex; justify-content: center;
+  &__top{display: flex}
+    &__img{border: 1px solid green; width: 700px; padding-bottom: 50%; background-size: contain; background-position: center; background-repeat: no-repeat;}
+    &__info{padding: 10px; text-align: center; display: flex; flex-direction: column; justify-content: center}
+      &__info-label{font-weight: bold; margin-right: 10px;}
+  &__bottom{margin-top: 40px; font-size: 20px}
+}

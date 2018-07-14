@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Route, NavLink} from 'react-router-dom';
 import BikesList from './BikesList';
 import BikesMap from './BikesMap';
+import SingleBike from './SingleBike';
+import Filters from './Filters';
 
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -20,13 +22,15 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Us
     const { match } = this.props;
     return (
       <div>
-        <div className="b-filters">
-          Filters
-        </div>
-        <div>
-          <BikesList></BikesList>
-          <BikesMap></BikesMap>
-        </div>
+        <Route exact path={`${match.url}`} render={()=>(
+          <div>
+            <Filters />
+            <BikesList />
+            <BikesMap />
+          </div>
+        )} />
+
+        <Route path={`${match.url}/bike/:id`} component={SingleBike}></Route>
       </div>
     );
   }

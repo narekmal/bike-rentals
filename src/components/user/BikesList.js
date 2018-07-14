@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import config from '../../Config';
+import {NavLink} from 'react-router-dom';
 
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -12,6 +13,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Bi
 
   render() {
 
+    const { match } = this.props;
     let tableHeaderCells, tableRowCells, tableColumnCount;
     if(this.props.bikes !== null){
       tableHeaderCells = Object.keys(this.props.bikes[0]).map((k,i)=><div key={i} className="b-table__header-cell">{k}</div>);
@@ -38,7 +40,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Bi
 
         cells.push(
           <div key="-1" className="b-table__cell b-table__cell--links-v">
-            <a className="u-link" onClick={()=>{}}>view details</a>
+            <NavLink className="u-link" to={`${match.url}bike/${b.id}`}>view details</NavLink>
             <a className="u-link" onClick={()=>{}}>view on map</a>
           </div>);
           
