@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import config from '../Config.js';
+import config from '../../Config.js';
 
 export default class ManageBikes extends Component {
 

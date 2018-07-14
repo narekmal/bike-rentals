@@ -3,22 +3,41 @@ import {Route, NavLink} from 'react-router-dom';
 import BikesList from './BikesList';
 import BikesMap from './BikesMap';
 
-class UserRoot extends Component {
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {getBikes} from '../../actions/bikeActions';
+
+const mapStateToProps = state => ({ ...state }); 
+const mapDispatchToProps = dispatch => {
+  return {
+    getBikes: () => { dispatch(getBikes()) }
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class UserRoot extends Component {
+
   render() {
     const { match } = this.props;
     return (
       <div>
-        <div className="b-menu">
-          <NavLink className="b-menu__item" to={`${match.url}/bikes-list`}>Bikes List</NavLink>
-          <NavLink className="b-menu__item" to={`${match.url}/map`}>Map</NavLink>
+        <div className="b-filters">
+          Filters
         </div>
         <div>
-          <Route path={`${match.url}/bikes-list`} component={BikesList}></Route>
-          <Route path={`${match.url}/map`} component={BikesMap}></Route>
+          <BikesList></BikesList>
+          <BikesMap></BikesMap>
         </div>
       </div>
     );
   }
-}
 
-export default UserRoot;
+  componentDidMount(){
+    if(this.props.bikes === null)
+      this.props.getBikes();
+  }
+
+}));
+
+
+
+

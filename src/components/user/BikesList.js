@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import config from '../Config';
+import config from '../../Config';
 
-export default class BikesList extends Component {
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {getBikes} from '../../actions/bikeActions';
 
-  state = {
-    items: []
-  }
+const mapStateToProps = state => ({ ...state }); 
+const mapDispatchToProps = () => ({});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class BikesList extends Component {
 
   render() {
 
     let tableHeaderCells, tableRowCells, tableColumnCount;
-    if(this.state.items.length !== 0){
-      tableHeaderCells = Object.keys(this.state.items[0]).map((k,i)=><div key={i} className="b-table__header-cell">{k}</div>);
+    if(this.props.bikes !== null){
+      tableHeaderCells = Object.keys(this.props.bikes[0]).map((k,i)=><div key={i} className="b-table__header-cell">{k}</div>);
       tableHeaderCells.push(<div key="-1" className="b-table__header-cell">Actions</div>);
       tableColumnCount = tableHeaderCells.length;
 
-      tableRowCells = this.state.items.map(b=>{
-        if(b.id === this.state.editingItemId)
-          return this.getEditRow();
+      tableRowCells = this.props.bikes.map(b=>{
 
         let cells = Object.keys(b).map( (k,i) => {
           let cellContent;
@@ -39,7 +40,9 @@ export default class BikesList extends Component {
           <div key="-1" className="b-table__cell">
             <a className="u-link" onClick={()=>{}}>view</a>
           </div>);
+          
         return cells;
+
       });
     }
 
@@ -53,14 +56,5 @@ export default class BikesList extends Component {
     )
   }
 
-  componentDidMount(){
-    fetch(`${config.apiBaseUrl}/api/getBikes`)
-      .then(res => res.json())
-      .then(json => this.setState({items: json}));
-  }
- 
+}));
 
- 
- 
-
-}

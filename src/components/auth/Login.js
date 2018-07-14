@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {login} from '../../actions/authActions';
-import config from '../Config.js';
+import config from '../../Config.js';
 
 class Login extends Component {
 

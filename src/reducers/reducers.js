@@ -1,4 +1,4 @@
-import {AUTH_END, LOGOUT} from '../actions/types';
+import {AUTH_END, LOGOUT, BIKES_RETRIEVED} from '../actions/types';
 
 let initialState = {
   auth: {
@@ -6,7 +6,9 @@ let initialState = {
     role: '', // 'user' or 'manager'
     userName: '',
     userId: 0
-  }
+  },
+  bikes: null,
+  filters: {}
 }
 
 // initialState = {
@@ -35,6 +37,11 @@ export default function(state = initialState, action) {
         auth: {
           isAuth: false
         }
+      };
+    case BIKES_RETRIEVED:
+      return {
+        ...state,
+        bikes: action.bikes
       };
     default:
       return state;

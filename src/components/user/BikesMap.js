@@ -15,7 +15,7 @@ export default class BikesMap extends Component {
   render() {
     return (
       // Important! Always set the container height explicitly
-      <div className="l-pane" style={{ height: '70vh', width: '100%' }}>
+      <div className="l-pane" style={{ height: '550px'}}>
         <GoogleMapReact
           //bootstrapURLKeys={{ key: /* YOUR KEY HERE */ }}
           defaultCenter={this.props.center}
