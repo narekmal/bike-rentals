@@ -54,7 +54,7 @@ export default class BikesList extends Component {
   }
 
   componentDidMount(){
-    fetch('http://narek-dev.com/bike-rentals-api/api/getBikes')
+    fetch(`${config.apiBaseUrl}/api/getBikes`)
       .then(res => res.json())
       .then(json => this.setState({items: json}));
   }

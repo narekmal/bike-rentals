@@ -9,14 +9,14 @@ let initialState = {
   }
 }
 
-initialState = {
-  auth: {
-    isAuth: true,
-    role: 'user',
-    userName: 'redux user',
-    userId: 3
-  }
-}
+// initialState = {
+//   auth: {
+//     isAuth: true,
+//     role: 'user',
+//     userName: 'redux user',
+//     userId: 3
+//   }
+// }
 
 export default function(state = initialState, action) {
   switch(action.type){

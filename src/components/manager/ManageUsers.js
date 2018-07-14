@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import config from '../Config.js';
 
 export default class ManageUsers extends Component {
 
@@ -96,7 +97,7 @@ export default class ManageUsers extends Component {
   }
 
   componentDidMount(){
-    fetch('http://narek-dev.com/bike-rentals-api/api/getUsers')
+    fetch(`${config.apiBaseUrl}/api/getUsers`)
       .then(res => res.json())
       .then(json => this.setState({items: json}));
   }
@@ -116,7 +117,7 @@ export default class ManageUsers extends Component {
       s.items.splice(idx, 1);
       return s;
     });
-    fetch(`http://narek-dev.com/bike-rentals-api/api/deleteUser?id=${id}`)
+    fetch(`${config.apiBaseUrl}/bike-rentals-api/api/deleteUser?id=${id}`)
       .then(res => res.json())
       .then(json => console.log(json));
   }
@@ -140,7 +141,7 @@ export default class ManageUsers extends Component {
     formData.append("name", temp.name);
     formData.append("password", temp.password);
     formData.append("role", temp.role);
-    fetch(`http://narek-dev.com/bike-rentals-api/api/editUser`, {
+    fetch(`${config.apiBaseUrl}/bike-rentals-api/api/editUser`, {
         method: 'POST',
         body: formData
       })
@@ -162,7 +163,7 @@ export default class ManageUsers extends Component {
 
     let formData = new FormData();
     formData.append("userId", id);
-    fetch(`http://narek-dev.com/bike-rentals-api/api/getUserReservations`, {
+    fetch(`${config.apiBaseUrl}/bike-rentals-api/api/getUserReservations`, {
         method: 'POST',
         body: formData
       })

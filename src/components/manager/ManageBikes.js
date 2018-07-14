@@ -188,7 +188,7 @@ export default class ManageBikes extends Component {
 
     let formData = new FormData();
     formData.append("bikeId", id);
-    fetch(`http://narek-dev.com/bike-rentals-api/api/getBikeReservations`, {
+    fetch(`${config.apiBaseUrl}/bike-rentals-api/api/getBikeReservations`, {
         method: 'POST',
         body: formData
       })
