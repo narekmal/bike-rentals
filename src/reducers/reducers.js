@@ -11,14 +11,16 @@ let initialState = {
   filters: {}
 }
 
-// initialState = {
-//   auth: {
-//     isAuth: true,
-//     role: 'user',
-//     userName: 'redux user',
-//     userId: 3
-//   }
-// }
+initialState = {
+  auth: {
+    isAuth: true,
+    role: 'user',
+    userName: 'redux user',
+    userId: 3
+  },
+  bikes: null,
+  filters: {}
+}
 
 export default function(state = initialState, action) {
   switch(action.type){
