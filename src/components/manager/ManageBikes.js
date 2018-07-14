@@ -45,11 +45,11 @@ export default class ManageBikes extends Component {
         });
 
         cells.push(
-          <div key="-1" className="b-table__cell">
+          <div key="-1" className="b-table__cell b-table__cell--links">
             <a className="u-link" onClick={()=>this.watchReservations(b.id)}>watch</a>
           </div>);
         cells.push(
-          <div key="-2" className="b-table__cell">
+          <div key="-2" className="b-table__cell b-table__cell--links">
             <a className="u-link" onClick={()=>this.editItem(b.id)}>edit</a>
             <a className="u-link" onClick={()=>this.submitDeleteItem(b.id)}>delete</a>
           </div>);
@@ -111,7 +111,7 @@ export default class ManageBikes extends Component {
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.latitude} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, latitude: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.longitude} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, longitude: e.target.value}}))}}/></div>
         <div className="b-table__cell"></div>
-        <div className="b-table__cell">
+        <div className="b-table__cell b-table__cell--links">
           <a className="u-link" onClick={()=>this.submitEditItem()}>submit</a>
           <a className="u-link" onClick={()=>this.setState({editingItemId: -1})}>cancel</a>
         </div>

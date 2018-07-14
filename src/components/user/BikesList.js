@@ -37,8 +37,9 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Bi
         });
 
         cells.push(
-          <div key="-1" className="b-table__cell">
-            <a className="u-link" onClick={()=>{}}>view</a>
+          <div key="-1" className="b-table__cell b-table__cell--links">
+            <a className="u-link" onClick={()=>{}}>view details</a>
+            <a className="u-link" onClick={()=>{}}>view on map</a>
           </div>);
           
         return cells;
