@@ -20,8 +20,8 @@ export default class ManageBikes extends Component {
     let tableHeaderCells, tableRowCells, tableColumnCount;
     if(this.state.items.length !== 0){
       tableHeaderCells = Object.keys(this.state.items[0]).map((k,i)=><div key={i} className="b-table__header-cell">{k}</div>);
-      tableHeaderCells.push(<div key="-1" className="b-table__header-cell">Reservations</div>);
-      tableHeaderCells.push(<div key="-2" className="b-table__header-cell">Actions</div>);
+      tableHeaderCells.push(<div key="-1" className="b-table__header-cell b-table__header-cell--links">Reservations</div>);
+      tableHeaderCells.push(<div key="-2" className="b-table__header-cell b-table__header-cell--links">Actions</div>);
       tableColumnCount = tableHeaderCells.length;
 
       tableRowCells = this.state.items.map(b=>{
@@ -45,11 +45,11 @@ export default class ManageBikes extends Component {
         });
 
         cells.push(
-          <div key="-1" className="b-table__cell b-table__cell--links">
+          <div key="-1" className="b-table__cell b-table__cell--links-v">
             <a className="u-link" onClick={()=>this.watchReservations(b.id)}>watch</a>
           </div>);
         cells.push(
-          <div key="-2" className="b-table__cell b-table__cell--links">
+          <div key="-2" className="b-table__cell b-table__cell--links-v">
             <a className="u-link" onClick={()=>this.editItem(b.id)}>edit</a>
             <a className="u-link" onClick={()=>this.submitDeleteItem(b.id)}>delete</a>
           </div>);
@@ -111,7 +111,7 @@ export default class ManageBikes extends Component {
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.latitude} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, latitude: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.longitude} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, longitude: e.target.value}}))}}/></div>
         <div className="b-table__cell"></div>
-        <div className="b-table__cell b-table__cell--links">
+        <div className="b-table__cell b-table__cell--links-v">
           <a className="u-link" onClick={()=>this.submitEditItem()}>submit</a>
           <a className="u-link" onClick={()=>this.setState({editingItemId: -1})}>cancel</a>
         </div>

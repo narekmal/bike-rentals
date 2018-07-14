@@ -20,18 +20,18 @@ export default class ManageUsers extends Component {
     let tableHeaderCells, tableRows = [];
     if(this.state.items.length !== 0){
       tableHeaderCells = Object.keys(this.state.items[0]).map((k,i)=><div key={i} className="b-table__header-cell">{k}</div>);
-      tableHeaderCells.push(<div key="-2" className="b-table__header-cell">Reservations</div>);
-      tableHeaderCells.push(<div key="-1" className="b-table__header-cell">Actions</div>);
+      tableHeaderCells.push(<div key="-2" className="b-table__header-cell b-table__header-cell--links">Reservations</div>);
+      tableHeaderCells.push(<div key="-1" className="b-table__header-cell b-table__header-cell--links">Actions</div>);
       tableRows = this.state.items.map(b=>{
         if(b.id === this.state.editingItemId)
           return this.getEditRow();
         let cells = Object.values(b).map((v,i)=><div key={i} className="b-table__cell">{v}</div>);
         cells.push(
-          <div key="-2" className="b-table__cell">
+          <div key="-2" className="b-table__cell  b-table__cell--links-h">
             <a className="u-link" onClick={()=>this.watchReservations(b.id)}>watch</a>
           </div>);
         cells.push(
-          <div key="-1" className="b-table__cell">
+          <div key="-1" className="b-table__cell b-table__cell--links-h">
             <a className="u-link" onClick={()=>this.editItem(b.id)}>edit</a>
             <a className="u-link" onClick={()=>this.submitDeleteItem(b.id)}>delete</a>
           </div>);

@@ -15,7 +15,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Bi
     let tableHeaderCells, tableRowCells, tableColumnCount;
     if(this.props.bikes !== null){
       tableHeaderCells = Object.keys(this.props.bikes[0]).map((k,i)=><div key={i} className="b-table__header-cell">{k}</div>);
-      tableHeaderCells.push(<div key="-1" className="b-table__header-cell">Actions</div>);
+      tableHeaderCells.push(<div key="-1" className="b-table__header-cell b-table__header-cell--links">Actions</div>);
       tableColumnCount = tableHeaderCells.length;
 
       tableRowCells = this.props.bikes.map(b=>{
@@ -37,7 +37,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Bi
         });
 
         cells.push(
-          <div key="-1" className="b-table__cell b-table__cell--links">
+          <div key="-1" className="b-table__cell b-table__cell--links-v">
             <a className="u-link" onClick={()=>{}}>view details</a>
             <a className="u-link" onClick={()=>{}}>view on map</a>
           </div>);
