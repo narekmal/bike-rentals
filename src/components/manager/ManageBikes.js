@@ -14,14 +14,15 @@ export default class ManageBikes extends Component {
     items: []
   }
 
-  emptyItem = {id: 0, model: '', photo: null, color: '', weight: '', location: '', available: 1, rate: 0}
+  emptyItem = {id: 0, model: '', photo: null, color: '', weight: '', available: 1, rating: 0, latitude: '', longitude: ''}
 
   render() {
-    let tableHeaderCells, tableRowCells;
+    let tableHeaderCells, tableRowCells, tableColumnCount;
     if(this.state.items.length !== 0){
       tableHeaderCells = Object.keys(this.state.items[0]).map((k,i)=><div key={i} className="b-table__header-cell">{k}</div>);
       tableHeaderCells.push(<div key="-1" className="b-table__header-cell">Reservations</div>);
       tableHeaderCells.push(<div key="-2" className="b-table__header-cell">Actions</div>);
+      tableColumnCount = tableHeaderCells.length;
 
       tableRowCells = this.state.items.map(b=>{
         if(b.id === this.state.editingItemId)
@@ -69,7 +70,7 @@ export default class ManageBikes extends Component {
 
     return (
       <div className="l-pane">
-        <div className="b-table" style={{gridTemplateColumns: 'repeat(10, 1fr)'}}>
+        <div className="b-table" style={{gridTemplateColumns: `repeat(${tableColumnCount}, 1fr)`}}>
           {tableHeaderCells}
           {tableRowCells}
         </div>
@@ -105,9 +106,10 @@ export default class ManageBikes extends Component {
         <div className="b-table__cell b-table__cell--img"><div className="b-table__file-input-wrapper"><button onClick={e=>{this.uploadInput.click(); e.preventDefault();}}>Choose Photo</button><input ref={el=>this.uploadInput = el} style={{display: 'none'}} type="file" onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, photo: e.target.files[0]}}))}} /></div></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.color} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, color: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.weight} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, weight: e.target.value}}))}}/></div>
-        <div className="b-table__cell"><input type="text" value={this.state.tempItem.location} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, location: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.available} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, available: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.rate} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, rate: e.target.value}}))}}/></div>
+        <div className="b-table__cell"><input type="text" value={this.state.tempItem.latitude} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, latitude: e.target.value}}))}}/></div>
+        <div className="b-table__cell"><input type="text" value={this.state.tempItem.longitude} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, longitude: e.target.value}}))}}/></div>
         <div className="b-table__cell"></div>
         <div className="b-table__cell">
           <a className="u-link" onClick={()=>this.submitEditItem()}>submit</a>
@@ -163,9 +165,10 @@ export default class ManageBikes extends Component {
     formData.append("photo", temp.photo);
     formData.append("color", temp.color);
     formData.append("weight", temp.weight);
-    formData.append("location", temp.location);
     formData.append("available", temp.available);
-    formData.append("rate", temp.rate);
+    formData.append("rating", temp.rating);
+    formData.append("latitude", temp.latitude);
+    formData.append("longitude", temp.longitude);
     fetch(`${config.apiBaseUrl}/api/editBike`, {
         method: 'POST',
         body: formData
@@ -188,7 +191,7 @@ export default class ManageBikes extends Component {
 
     let formData = new FormData();
     formData.append("bikeId", id);
-    fetch(`${config.apiBaseUrl}/bike-rentals-api/api/getBikeReservations`, {
+    fetch(`${config.apiBaseUrl}/api/getBikeReservations`, {
         method: 'POST',
         body: formData
       })

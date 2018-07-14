@@ -21,16 +21,16 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Bi
   };
 
   render() {
+    let bikeIcons;
+    if(this.props.bikes)
+      bikeIcons = this.props.bikes.map((b,i)=><BikeIcon key={i} lat={b.latitude} lng={b.longitude}/>)
     return (
       <div className="l-pane" style={{ height: '550px'}}>
         <GoogleMapReact
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          <BikeIcon
-            lat={40.812180}
-            lng={44.488464}
-          />
+          {bikeIcons}
         </GoogleMapReact>
       </div>
     );
