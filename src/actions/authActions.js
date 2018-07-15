@@ -14,8 +14,8 @@ export function fakeLogin(role){
     dispatch({
       type: AUTH_END, 
       authenticated: true, 
-      userId: role=='manager' ? 8 : 9, 
-      userName: role=='manager' ? 'new' : 'valod', 
+      userId: role==='manager' ? 8 : 9, 
+      userName: role==='manager' ? 'new' : 'valod', 
       userRole: role
     });
     
@@ -44,25 +44,3 @@ export function login(userName, password){
       .catch(err => err.text().then(errorMessage => console.log(errorMessage)));
   }
 }
-
-
-// export function createUser(userName, password){
-//   return function(dispatch){
-//     dispatch({type: AUTH_START});
-//     axios
-//       .get(config.apiUrl, { params: {
-//         operation: 'createnewuser',
-//         username: userName,
-//         password: password
-//       }})
-//       .then(response => {
-//         dispatch({
-//           type: AUTH_END,
-//           authToken: response.data.token,
-//           justCreatedUser: response.data.token ? true : false,
-//           userName: userName
-//         });
-//       })
-//       .catch(error => {console.log(error);});
-//   }
-// }

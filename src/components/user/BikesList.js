@@ -4,7 +4,6 @@ import {NavLink} from 'react-router-dom';
 
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getBikes} from '../../actions/bikeActions';
 
 const mapStateToProps = state => ({ ...state }); 
 const mapDispatchToProps = () => ({});
@@ -13,7 +12,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Bi
 
   render() {
 
-    const { match } = this.props;
     let tableHeaderCells, tableRowCells, tableColumnCount;
     if(this.props.bikes !== null){
       tableHeaderCells = Object.keys(this.props.bikes[0]).map((k,i)=><div key={i} className="b-table__header-cell">{k}</div>);

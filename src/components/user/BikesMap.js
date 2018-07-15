@@ -4,7 +4,6 @@ import GoogleMapReact from 'google-map-react';
 
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getBikes} from '../../actions/bikeActions';
 
 const mapStateToProps = state => ({ ...state }); 
 const mapDispatchToProps = () => ({});
@@ -21,7 +20,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Bi
   };
 
   render() {
-    console
     let bikeIcons;
     if(this.props.bikes)
       bikeIcons = this.props.bikes.map((b,i)=>(

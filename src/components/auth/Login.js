@@ -47,9 +47,9 @@ class Login extends Component {
         </div>
 
         <div style={{marginTop: 50}}>
-          { this.state.users.length == 0 && 
+          { this.state.users.length === 0 && 
             <div>loading users...</div>}
-          { this.state.users.length != 0 && 
+          { this.state.users.length !== 0 && 
             <div className="b-table" style={{gridTemplateColumns: `repeat(${tableColCount}, 1fr)`}}>
               {tableHeaderCells}
               {tableRows}

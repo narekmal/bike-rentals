@@ -16,8 +16,8 @@ initialState = {
   auth: {
     isAuth: true,
     role: 'user',
-    userName: 'redux user',
-    userId: 3
+    userName: 'User1',
+    userId: 9
   },
   bikes: null,
   filters: {}

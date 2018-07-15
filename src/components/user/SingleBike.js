@@ -77,9 +77,22 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
   }
 
   componentDidMount(){
-    // fetch(`${config.apiBaseUrl}/api/getBikes`)
-    //   .then(res => res.json())
-    //   .then(json => this.setState({items: json}));
+    let formData = new FormData();
+    formData.append("userId", this.props.auth.userId);
+    formData.append("bikeId", this.props.match.params.id);
+    
+    fetch(`${config.apiBaseUrl}/api/getBikeAdditionalInfo`, {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(json => {
+
+        console.log(json)
+        //dispatch({type: AUTH_END, authenticated: json.authenticated, userId: json.userId, userName: json.userName, userRole: json.userRole});
+
+      })
+      .catch(err => err.text().then(errorMessage => console.log(errorMessage)));
   }
 
 }));
