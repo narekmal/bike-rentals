@@ -41,7 +41,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Bi
         cells.push(
           <div key="-1" className="b-table__cell b-table__cell--links-v">
             <NavLink className="u-link" to={`/user/bike/${b.id}`}>view details</NavLink>
-            <a className="u-link" onClick={()=>{}}>view on map</a>
+            <a className="u-link" onClick={()=>{this.props.onBikeHighlight(b.id)}}>view on map</a>
           </div>);
           
         return cells;

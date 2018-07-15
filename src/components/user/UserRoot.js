@@ -18,6 +18,10 @@ const mapDispatchToProps = dispatch => {
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class UserRoot extends Component {
 
+  state = {
+    highlightedBikeId: null
+  }
+
   render() {
     const { match } = this.props;
     return (
@@ -25,8 +29,8 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Us
         <Route exact path={`${match.url}`} render={()=>(
           <div>
             <Filters />
-            <BikesList />
-            <BikesMap />
+            <BikesList onBikeHighlight={id=>this.setState({highlightedBikeId: id})} />
+            <BikesMap highlightedBikeId={this.state.highlightedBikeId} />
           </div>
         )} />
 
