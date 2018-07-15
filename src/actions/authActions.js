@@ -7,16 +7,18 @@ export function logout(){
   }
 }
 
-export function fakeLogin(userName, password){
+export function fakeLogin(role){
   console.log('here');
   return function(dispatch){
 
     dispatch({
-      type: AUTH_END,
-      isAuth: true,
-      userName: userName,
-      role: userName === 'fake manager' ? 'manager' : 'user'
+      type: AUTH_END, 
+      authenticated: true, 
+      userId: role=='manager' ? 8 : 9, 
+      userName: role=='manager' ? 'new' : 'valod', 
+      userRole: role
     });
+    
   }
 }
 
