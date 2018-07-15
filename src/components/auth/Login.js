@@ -30,8 +30,8 @@ class Login extends Component {
         <div>
 
           <div style={{display: 'flex', justifyContent: 'center', marginBottom: 30}}>
-            <button onClick={()=>this.props.fakeLogin('manager')}>Log in as Manager</button>
-            <button style={{marginLeft: 20}} onClick={()=>this.props.fakeLogin('user')}>Log in as User</button>
+            <button onClick={()=>this.props.fakeLogin('manager')}>Manager</button>
+            <button style={{marginLeft: 20}} onClick={()=>this.props.fakeLogin('user')}>User</button>
           </div>
           
           <form className="b-auth-form" action="" onSubmit={this.handleSubmit.bind(this)}>
