@@ -62,3 +62,7 @@ body {margin: 0; padding: 0; font-family: sans-serif;}
       &__info-label{font-weight: bold; margin-right: 10px;}
   &__bottom{margin-top: 40px; font-size: 20px}
 }
+
+.b-filters{
+  display: flex; justify-content: center; padding: 10px; border-bottom: 1px solid black; align-items: center;
+}
