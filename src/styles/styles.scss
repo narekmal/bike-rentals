@@ -60,7 +60,12 @@ body {margin: 0; padding: 0; font-family: sans-serif;}
     &__img{border: 1px solid green; width: 700px; padding-bottom: 50%; background-size: contain; background-position: center; background-repeat: no-repeat;}
     &__info{padding: 10px; text-align: center; display: flex; flex-direction: column; justify-content: center}
       &__info-label{font-weight: bold; margin-right: 10px;}
-  &__bottom{margin-top: 40px; font-size: 20px}
+
+  &__bottom{display: flex; justify-content: center; margin-top: 60px; font-size: 20px}
+    &__bottom-label{margin-right: 10px}
+    &__bottom-rating{margin-bottom: 20px; display: flex; justify-content: center}
+      &__bottom-form{input[type='submit']{margin-left: 10px;}}
+    &__bottom-reservation{display: flex; justify-content: center}
 }
 
 .b-filters{

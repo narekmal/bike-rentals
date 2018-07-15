@@ -11,13 +11,14 @@ const mapDispatchToProps = () => ({});
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class SingleBike extends Component {
 
   state={
-    bikeAdditionalInfo:{
-      loading: null
-    },
+    loadingAdditionalInfo: null,
     rating:{
+      status: '',
+
+      currentRating: null,
+
       selectedRating: null,
-      submitting: false,
-      submitted: false
+      submitting: null
     },
     reservation:{
       submitting: false
@@ -28,6 +29,10 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
     let bike;
     if(this.props.bikes)
       bike = this.props.bikes.find(b=>b.id==this.props.match.params.id);
+
+    let ratingStatus = this.state.rating.status;
+    let resStatus = this.state.reservation.status;
+
     return (
       <div>
 
@@ -45,28 +50,46 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
                   <div className="b-bike__info-item"><span className="b-bike__info-label">Avg. Rating:</span>{bike.rating}</div>
                 </div>
               </div>
+
               <div className="b-bike__bottom">
-                { this.state.bikeAdditionalInfo.loading &&
-                  <div className="b-bike__bottom-loading">loading...</div> }
-                { this.state.bikeAdditionalInfo.loading &&
-                  <div className="b-bike__bottom-loading">loading...</div> }
-                <div className="b-bike__bottom-rating">
-                  <div className="b-bike__bottom-label">Rate the bike:</div>
-                  <form className="b-bike__bottom-form" action="">
-                    <input type="radio" name="rating" value="1" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 1}}))} />
-                    <input type="radio" name="rating" value="2" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 2}}))} />
-                    <input type="radio" name="rating" value="3" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 3}}))} />
-                    <input type="radio" name="rating" value="4" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 4}}))} />
-                    <input type="radio" name="rating" value="5" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 5}}))} />
-                    <input type="submit" value="submit"/>
-                  </form>
+                <div className="b-bike__bottom-inner">
+
+                  { this.state.loadingAdditionalInfo &&
+                    <div className="b-bike__bottom-loading">loading info...</div> }
+
+                  { this.state.loadingAdditionalInfo === false &&
+                    <div className="b-bike__bottom-rating">
+                      <div className="b-bike__bottom-label">{ratingStatus == "HAS_RATED" ? "Your rating:" : "Rate the bike:"}</div>
+                      <div>{ratingStatus == "HAS_RATED" ? this.state.rating.currentRating : (ratingStatus == "HASNT_RESERVED" ? "(you haven't reserved this bike)" : "")}</div>
+                      { ratingStatus == "CAN_RATE" && this.state.rating.submitting == null && 
+                        <form className="b-bike__bottom-form" onSubmit={this.onRatingSubmit.bind(this)} action="">
+                          <input type="radio" name="rating" value="1" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 1}}))} />
+                          <input type="radio" name="rating" value="2" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 2}}))} />
+                          <input type="radio" name="rating" value="3" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 3}}))} />
+                          <input type="radio" name="rating" value="4" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 4}}))} />
+                          <input type="radio" name="rating" value="5" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 5}}))} />
+                          <input type="submit" value="submit"/>
+                        </form>}
+                      { ratingStatus == "CAN_RATE" && this.state.rating.submitting && 
+                        <div>submitting...</div>}
+                    </div> }
+
+                  { this.state.loadingAdditionalInfo === false &&
+                    <div className="b-bike__bottom-reservation">
+                      <div className="b-bike__bottom-label">{resStatus == "CAN_BE_RESERVED" ? "Reserve the bike:" : "You have reserved this bike:"}</div>
+                      { resStatus == "CAN_BE_RESERVED" && !this.state.reservation.submitting &&
+                        <div>
+                          <button onClick={this.onReserveClick.bind(this)}>reserve</button>
+                        </div>}
+                      { resStatus == "CURRENT_USER_RESERVED" && !this.state.reservation.submitting &&
+                        <div><button onClick={this.onCancelResClick.bind(this)}>cancel reservation</button></div>}
+                      { this.state.reservation.submitting &&
+                        <div>processing...</div>}
+                      
+                    </div> }
+
                 </div>
-                <div className="b-bike__bottom-reservation">
-                  <div className="b-bike__bottom-label">Reserve the bike:</div>
-                  <div>
-                    <button>reserve</button>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -77,6 +100,9 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
   }
 
   componentDidMount(){
+
+    this.setState({loadingAdditionalInfo: true});
+
     let formData = new FormData();
     formData.append("userId", this.props.auth.userId);
     formData.append("bikeId", this.props.match.params.id);
@@ -88,11 +114,85 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
       .then(res => res.json())
       .then(json => {
 
-        console.log(json)
-        //dispatch({type: AUTH_END, authenticated: json.authenticated, userId: json.userId, userName: json.userName, userRole: json.userRole});
+        console.log(json);
+        this.setState(s=>({...s, loadingAdditionalInfo: false, 
+          rating: {
+            ...s.rating,
+            status: json.ratingStatus,
+            currentRating: json.rating,
+          },
+          reservation: {
+            ...s.reservation,
+            status: json.reservationStatus
+          }
+        }))
+
+      })
+      .catch(err => console.log(err));
+  }
+
+  onRatingSubmit(e){
+    e.preventDefault();
+
+    if(!this.state.rating.selectedRating)
+      return;
+
+    this.setState(s=>({...s, rating:{...s.rating, submitting: true}}));
+
+    let formData = new FormData();
+    formData.append("userId", this.props.auth.userId);
+    formData.append("bikeId", this.props.match.params.id);
+    formData.append("rating", this.state.rating.selectedRating);
+    
+    fetch(`${config.apiBaseUrl}/api/rateBike`, {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(json => {
+
+        console.log(json);
+        this.setState(s=>({ 
+          rating: {
+            ...s.rating,
+            status: 'HAS_RATED',
+            currentRating: this.state.rating.selectedRating,
+          },
+        }))
 
       })
       .catch(err => err.text().then(errorMessage => console.log(errorMessage)));
+  }
+
+  onCancelResClick(){
+
+    this.setState(s=>({...s, reservation:{...s.reservation, submitting: true}}));
+
+    let formData = new FormData();
+    formData.append("userId", this.props.auth.userId);
+    formData.append("bikeId", this.props.match.params.id);
+    
+    fetch(`${config.apiBaseUrl}/api/cancelBikeReservation`, {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(json => {
+
+        console.log(json);
+        this.setState(s=>({ 
+          reservation: {
+            ...s.reservation,
+            submitting: false,
+          },
+        }))
+
+      })
+      .catch(err => err.text().then(errorMessage => console.log(errorMessage)));
+  }
+
+  onReserveClick(){
+
   }
 
 }));

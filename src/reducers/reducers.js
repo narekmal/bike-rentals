@@ -39,7 +39,8 @@ export default function(state = initialState, action) {
           isAuthenticating: false,
           isAuth: action.authenticated,
           role: action.userRole,
-          userName: action.userName
+          userName: action.userName,
+          userId: action.userId
         }
       };
     case LOGOUT:
