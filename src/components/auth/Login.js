@@ -10,7 +10,6 @@ class Login extends Component {
     password: '',
     users: [],
 
-    isAuthenticating: false,
     areUsersLoading: false
   }
 
@@ -28,7 +27,7 @@ class Login extends Component {
             <input type="text" placeholder="User Name" value={this.state.userName} onChange={e=>this.setState({userName: e.target.value})} />
             <input type="password" placeholder="Password" value={this.state.password} onChange={e=>this.setState({password: e.target.value})} />
             <input type="submit" value="Login"/>
-            <div>
+            <div className="b-auth-form__status">
               {this.props.auth.isAuthenticating && <span>logging in...</span>}
               {this.props.auth.isAuthenticating === false && !this.props.auth.isAuth && <span>failed to log in</span>}
             </div>
