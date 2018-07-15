@@ -117,7 +117,7 @@ export default class ManageUsers extends Component {
       s.items.splice(idx, 1);
       return s;
     });
-    fetch(`${config.apiBaseUrl}/bike-rentals-api/api/deleteUser?id=${id}`)
+    fetch(`${config.apiBaseUrl}/api/deleteUser?id=${id}`)
       .then(res => res.json())
       .then(json => console.log(json));
   }
@@ -141,7 +141,7 @@ export default class ManageUsers extends Component {
     formData.append("name", temp.name);
     formData.append("password", temp.password);
     formData.append("role", temp.role);
-    fetch(`${config.apiBaseUrl}/bike-rentals-api/api/editUser`, {
+    fetch(`${config.apiBaseUrl}/api/editUser`, {
         method: 'POST',
         body: formData
       })
@@ -163,7 +163,7 @@ export default class ManageUsers extends Component {
 
     let formData = new FormData();
     formData.append("userId", id);
-    fetch(`${config.apiBaseUrl}/bike-rentals-api/api/getUserReservations`, {
+    fetch(`${config.apiBaseUrl}/api/getUserReservations`, {
         method: 'POST',
         body: formData
       })
