@@ -56,7 +56,8 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
                   <div className="b-bike__info-item"><span className="b-bike__info-label">Model:</span>{bike.model}</div>
                   <div className="b-bike__info-item"><span className="b-bike__info-label">Color:</span>{bike.color}</div>
                   <div className="b-bike__info-item"><span className="b-bike__info-label">Weight:</span>{bike.weight}</div>
-                  <div className="b-bike__info-item"><span className="b-bike__info-label">Avg. Rating:</span>{bike.rating}</div>
+                  <div className="b-bike__info-item"><span className="b-bike__info-label">Avg. Rating:</span>{bike['avg. rating']}</div>
+                  <div className="b-bike__info-item"><span className="b-bike__info-label">Currently Available:</span>{bike.available}</div>
                 </div>
               </div>
 

@@ -14,7 +14,7 @@ export default class ManageBikes extends Component {
     items: []
   }
 
-  emptyItem = {id: 0, model: '', photo: null, color: '', weight: '', available: 1, rating: 0, latitude: '', longitude: ''}
+  emptyItem = {id: 0, model: '', photo: null, color: '', weight: '', latitude: '', longitude: '', 'avg. rating': null, available: 1}
 
   render() {
     let tableHeaderCells, tableRowCells, tableColumnCount;
@@ -106,10 +106,10 @@ export default class ManageBikes extends Component {
         <div className="b-table__cell b-table__cell--img"><div className="b-table__file-input-wrapper"><button onClick={e=>{this.uploadInput.click(); e.preventDefault();}}>Choose Photo</button><input ref={el=>this.uploadInput = el} style={{display: 'none'}} type="file" onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, photo: e.target.files[0]}}))}} /></div></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.color} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, color: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.weight} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, weight: e.target.value}}))}}/></div>
-        <div className="b-table__cell"><input type="text" value={this.state.tempItem.available} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, available: e.target.value}}))}}/></div>
-        <div className="b-table__cell"><input type="text" value={this.state.tempItem.rate} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, rate: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.latitude} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, latitude: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.longitude} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, longitude: e.target.value}}))}}/></div>
+        <div className="b-table__cell">{this.state.tempItem['avg. rating']}</div>
+        <div className="b-table__cell">{this.state.tempItem.available}</div>
         <div className="b-table__cell"></div>
         <div className="b-table__cell b-table__cell--links-v">
           <a className="u-link" onClick={()=>this.submitEditItem()}>submit</a>
@@ -165,8 +165,6 @@ export default class ManageBikes extends Component {
     formData.append("photo", temp.photo);
     formData.append("color", temp.color);
     formData.append("weight", temp.weight);
-    formData.append("available", temp.available);
-    formData.append("rating", temp.rating);
     formData.append("latitude", temp.latitude);
     formData.append("longitude", temp.longitude);
     fetch(`${config.apiBaseUrl}/api/editBike`, {
