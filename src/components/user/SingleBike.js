@@ -69,7 +69,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
                   { this.state.loadingAdditionalInfo === false &&
                     <div className="b-bike__bottom-rating">
                       <div className="b-bike__bottom-label">{ratingStatus == "HAS_RATED" ? "Your rating:" : "Rate the bike:"}</div>
-                      <div>{ratingStatus == "HAS_RATED" ? this.state.rating.currentRating : (ratingStatus == "HASNT_RESERVED" ? "(you haven't reserved this bike)" : "")}</div>
+                      <div>{ratingStatus == "HAS_RATED" ? this.state.rating.currentRating : (ratingStatus == "HASNT_RESERVED" ? "(you haven't used this bike)" : "")}</div>
                       { ratingStatus == "CAN_RATE" && this.state.rating.submitting == null && 
                         <form className="b-bike__bottom-form" onSubmit={this.onRatingSubmit.bind(this)} action="">
                           <input type="radio" name="rating" value="1" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 1}}))} />
