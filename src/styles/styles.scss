@@ -66,7 +66,8 @@ body {margin: 0; padding: 0; font-family: sans-serif;}
     &__bottom-rating{margin-bottom: 20px; display: flex; justify-content: center}
       &__bottom-form{input[type='submit']{margin-left: 10px;}}
     &__bottom-reservation{display: flex; justify-content: center}
-}
+      &__bottom-res-form{display: flex; align-items: center; &>div{margin-right: 10px; margin-bottom: 3px;}}
+  }
 
 .b-filters{
   display: flex; justify-content: center; padding: 10px; border-bottom: 1px solid black; align-items: center;

@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import config from '../../Config';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -21,6 +26,10 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
       submitting: null
     },
     reservation:{
+      status: '',
+
+      selectedPeriodStart: undefined,
+      selectedPeriodEnd: undefined,
       submitting: false
     }
   }
@@ -68,7 +77,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
                           <input type="radio" name="rating" value="3" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 3}}))} />
                           <input type="radio" name="rating" value="4" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 4}}))} />
                           <input type="radio" name="rating" value="5" onClick={()=>this.setState(s=>({rating: {...s.rating, selectedRating: 5}}))} />
-                          <input type="submit" value="submit"/>
+                          <input type="submit" value="Submit"/>
                         </form>}
                       { ratingStatus == "CAN_RATE" && this.state.rating.submitting && 
                         <div>submitting...</div>}
@@ -78,11 +87,17 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
                     <div className="b-bike__bottom-reservation">
                       <div className="b-bike__bottom-label">{resStatus == "CAN_BE_RESERVED" ? "Reserve the bike:" : "You have reserved this bike:"}</div>
                       { resStatus == "CAN_BE_RESERVED" && !this.state.reservation.submitting &&
-                        <div>
-                          <button onClick={this.onReserveClick.bind(this)}>reserve</button>
+                        <div className="b-bike__bottom-res-form">
+                          <DatePicker 
+                            placeholderText="Start" selected={this.state.reservation.selectedPeriodStart} 
+                            onChange={e=>this.setState(s=>({reservation: {...s.reservation, selectedPeriodStart: e}})) } />
+                          <DatePicker 
+                            placeholderText="End" selected={this.state.reservation.selectedPeriodEnd} 
+                            onChange={e=>this.setState(s=>({reservation: {...s.reservation, selectedPeriodEnd: e}})) } />
+                          <button onClick={this.onReserveClick.bind(this)}>Reserve</button>
                         </div>}
                       { resStatus == "CURRENT_USER_RESERVED" && !this.state.reservation.submitting &&
-                        <div><button onClick={this.onCancelResClick.bind(this)}>cancel reservation</button></div>}
+                        <div><button onClick={this.onCancelResClick.bind(this)}>Cancel Reservation</button></div>}
                       { this.state.reservation.submitting &&
                         <div>processing...</div>}
                       
@@ -184,6 +199,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
           reservation: {
             ...s.reservation,
             submitting: false,
+            status: 'CAN_BE_RESERVED'
           },
         }))
 
@@ -193,6 +209,32 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
 
   onReserveClick(){
 
+    this.setState(s=>({...s, reservation:{...s.reservation, submitting: true}}));
+
+    let formData = new FormData();
+    formData.append("userId", this.props.auth.userId);
+    formData.append("bikeId", this.props.match.params.id);
+    formData.append("periodStart", this.state.reservation.selectedPeriodStart.format("YYYY/MM/DD"));
+    formData.append("periodEnd", this.state.reservation.selectedPeriodEnd.format("YYYY/MM/DD"));
+    
+    fetch(`${config.apiBaseUrl}/api/reserveBike`, {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(json => {
+
+        console.log(json);
+        this.setState(s=>({ 
+          reservation: {
+            ...s.reservation,
+            submitting: false,
+            status: 'CURRENT_USER_RESERVED'
+          },
+        }))
+
+      })
+      .catch(err => err.text().then(errorMessage => console.log(errorMessage)));
   }
 
 }));
