@@ -1,4 +1,4 @@
-import {AUTH_START, AUTH_END, LOGOUT, BIKES_RETRIEVED} from '../actions/types';
+import {AUTH_START, AUTH_END, LOGOUT, BIKES_RETRIEVED, FILTERS_APPLIED} from '../actions/types';
 
 let initialState = {
   auth: {
@@ -9,7 +9,14 @@ let initialState = {
     userId: 0
   },
   bikes: null,
-  filters: {}
+  filters: {
+    color: '',
+    model: '',
+    minWeight: '',
+    maxWeight: '',
+    nearLoc: '',
+    minRating: ''
+  }
 }
 
 initialState = {
@@ -20,7 +27,14 @@ initialState = {
     userId: 9
   },
   bikes: null,
-  filters: {}
+  filters: {
+    color: '',
+    model: '',
+    minWeight: '',
+    maxWeight: '',
+    nearLoc: '',
+    minRating: ''
+  }
 }
 
 export default function(state = initialState, action) {
@@ -54,6 +68,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         bikes: action.bikes
+      };
+    case FILTERS_APPLIED:
+      return {
+        ...state,
+        filters: action.filters
       };
     default:
       return state;

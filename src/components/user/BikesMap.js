@@ -21,10 +21,31 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Bi
 
   render() {
     let bikeIcons;
-    if(this.props.bikes)
-      bikeIcons = this.props.bikes.map((b,i)=>(
-        <BikeIcon key={i} lat={b.latitude} lng={b.longitude} bikeId={b.id} selected={this.props.highlightedBikeId == b.id} />
-      ));
+    if(this.props.bikes){
+      let filtered = this.props.bikes.filter(b=>{
+        let colorPass = this.props.filters.color == '' || b.color.toLowerCase().indexOf(this.props.filters.color.toLowerCase()) != -1;
+        let modelPass = this.props.filters.model == '' || b.model.toLowerCase().indexOf(this.props.filters.model.toLowerCase()) != -1;
+        let minWeightPass = this.props.filters.minWeight == '' || parseInt(b.weight) >= parseInt(this.props.filters.minWeight);
+        let maxWeightPass = this.props.filters.maxWeight == '' || parseInt(b.weight) <= parseInt(this.props.filters.maxWeight);
+        let minRatingPass = this.props.filters.minRating == '' || parseInt(b['avg. rating']) > parseInt(this.props.filters.minRating);
+        let nearLocPass = true;
+        if(this.props.filters.nearLoc != ''){
+          let split = this.props.filters.nearLoc.split(" ");
+          let lat = parseFloat(split[0]);
+          let long = parseFloat(split[1]);
+          let blat = parseFloat(b.latitude);
+          let blong = parseFloat(b.longitude);
+          let margin = 0.004440; //0.004431
+          nearLocPass = Math.abs(lat-blat) < margin && Math.abs(long - blong) < margin;
+        }
+        return colorPass && modelPass && minWeightPass && maxWeightPass && minRatingPass && nearLocPass; 
+      });
+      if(filtered.length > 0)
+        bikeIcons = filtered.map((b,i)=>(
+          <BikeIcon key={i} lat={b.latitude} lng={b.longitude} bikeId={b.id} selected={this.props.highlightedBikeId == b.id} />
+        ));
+    }
+      
     return (
       <div className="l-pane" style={{ height: '350px'}}>
         <GoogleMapReact
