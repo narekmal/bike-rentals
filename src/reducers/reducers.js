@@ -19,23 +19,23 @@ let initialState = {
   }
 }
 
-initialState = {
-  auth: {
-    isAuth: true,
-    role: 'user',
-    userName: 'User1',
-    userId: 9
-  },
-  bikes: null,
-  filters: {
-    color: '',
-    model: '',
-    minWeight: '',
-    maxWeight: '',
-    nearLoc: '',
-    minRating: ''
-  }
-}
+// initialState = {
+//   auth: {
+//     isAuth: true,
+//     role: 'user',
+//     userName: 'User1',
+//     userId: 9
+//   },
+//   bikes: null,
+//   filters: {
+//     color: '',
+//     model: '',
+//     minWeight: '',
+//     maxWeight: '',
+//     nearLoc: '',
+//     minRating: ''
+//   }
+// }
 
 export default function(state = initialState, action) {
   switch(action.type){

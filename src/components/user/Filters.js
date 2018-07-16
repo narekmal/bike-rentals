@@ -27,16 +27,16 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Fi
 
     return (
       <div className="b-filters">
-        Filters
+        <div className="b-filters__label">Filters</div>
         <form onSubmit={this.apply.bind(this)} className="b-filters__form">
-          <input value={this.state.color} onChange={e=>this.setState({color: e.target.value})} type="text" placeholder="Color"/>
-          <input value={this.state.model} onChange={e=>this.setState({model: e.target.value})} type="text" placeholder="Model"/>
-          <input value={this.state.minWeight} onChange={e=>this.setState({minWeight: e.target.value})} type="text" placeholder="Min. Weight"/>
-          <input value={this.state.maxWeight} onChange={e=>this.setState({maxWeight: e.target.value})} type="text" placeholder="Max. Weight"/>
-          <input value={this.state.nearLoc} onChange={e=>this.setState({nearLoc: e.target.value})} type="text" placeholder="Near This Location"/>
-          <input value={this.state.minRating} onChange={e=>this.setState({minRating: e.target.value})} type="text" placeholder="Min. Rating"/>
+          <input className="b-filters__color" value={this.state.color} onChange={e=>this.setState({color: e.target.value})} type="text" placeholder="Color"/>
+          <input className="b-filters__model" value={this.state.model} onChange={e=>this.setState({model: e.target.value})} type="text" placeholder="Model"/>
+          <input className="b-filters__minweight" value={this.state.minWeight} onChange={e=>this.setState({minWeight: e.target.value})} type="text" placeholder="Min. Weight"/>
+          <input className="b-filters__maxweight" value={this.state.maxWeight} onChange={e=>this.setState({maxWeight: e.target.value})} type="text" placeholder="Max. Weight"/>
+          <input className="b-filters__nearloc" value={this.state.nearLoc} onChange={e=>this.setState({nearLoc: e.target.value})} type="text" placeholder="Near This Location"/>
+          <input className="b-filters__minrating" value={this.state.minRating} onChange={e=>this.setState({minRating: e.target.value})} type="text" placeholder="Min. Rating"/>
         </form>
-        <button onClick={this.apply.bind(this)}>Apply</button>
+        <button className="b-filters__apply" onClick={this.apply.bind(this)}>Apply</button>
         <button onClick={this.clear.bind(this)}>Clear</button>
       </div>
     )

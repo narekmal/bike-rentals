@@ -29,10 +29,10 @@ class Login extends Component {
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 70}}>
         <div>
 
-          <div style={{display: 'flex', justifyContent: 'center', marginBottom: 30}}>
+          {/* <div style={{display: 'flex', justifyContent: 'center', marginBottom: 30}}>
             <button onClick={()=>this.props.fakeLogin('manager')}>Manager</button>
             <button style={{marginLeft: 20}} onClick={()=>this.props.fakeLogin('user')}>User</button>
-          </div>
+          </div> */}
           
           <form className="b-auth-form" action="" onSubmit={this.handleSubmit.bind(this)}>
             <input type="text" placeholder="User Name" value={this.state.userName} onChange={e=>this.setState({userName: e.target.value})} />
