@@ -88,7 +88,7 @@ export default class ManageUsers extends Component {
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.password} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, password: e.target.value}}))}}/></div>
         <div className="b-table__cell"><input type="text" value={this.state.tempItem.role} onChange={e=>{e.persist(); this.setState(s=>({tempItem:{...s.tempItem, role: e.target.value}}))}}/></div>
         <div className="b-table__cell"></div>
-        <div className="b-table__cell">
+        <div className="b-table__cell  b-table__cell--links-h">
           <a className="u-link" onClick={()=>this.submitEditItem()}>submit</a>
           <a className="u-link" onClick={()=>this.setState({editingItemId: -1})}>cancel</a>
         </div>

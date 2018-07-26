@@ -11,7 +11,11 @@ import {connect} from 'react-redux';
 import {getBikes} from '../../actions/bikeActions';
 
 const mapStateToProps = state => ({ ...state }); 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => {
+  return {
+    getBikes: () => { dispatch(getBikes()) }
+  }
+}
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class SingleBike extends Component {
 
@@ -176,6 +180,8 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
           },
         }))
 
+        this.props.getBikes();
+        
       })
       .catch(err => err.text().then(errorMessage => console.log(errorMessage)));
   }
@@ -233,6 +239,8 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)( class Si
             status: 'CURRENT_USER_RESERVED'
           },
         }))
+
+        this.props.getBikes();
 
       })
       .catch(err => err.text().then(errorMessage => console.log(errorMessage)));
